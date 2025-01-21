@@ -1,0 +1,32 @@
+### GET request
+GET http://localhost:5002/reservations
+
+### GET request with id
+GET http://localhost:5002/reservations/a000000000000000000000010
+
+### POST request
+POST http://localhost:5002/reservations
+Content-Type: application/json
+
+{
+  "roomId": "b00000000000000000000001",
+  "userId": "c00000000000000000000001",
+  "from": "2025-01-12T10:00:00.000Z",
+  "to": "2025-01-12T12:00:00.000Z",
+  "status": "confirmed",
+  "totalPrice": 2000
+}
+
+### PUT request
+PUT http://localhost:5002/reservations/id
+Content-Type: application/json
+
+{
+  "from": "2025-01-12T14:00:00.000Z",
+  "to": "2025-01-12T16:00:00.000Z",
+  "status": "unconfirmed",
+  "totalPrice": 1500
+}
+
+### DELETE request
+DELETE http://localhost:5002/reservations/id

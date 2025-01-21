@@ -1,0 +1,11 @@
+### POST request
+POST http://localhost:5004/notifications
+Content-Type: application/json
+
+{
+  "userId": "c00000000000000000000001",
+  "message": "Nová rezervace pro taneční plocha"
+}
+
+### GET request
+GET http://localhost:5004/notifications

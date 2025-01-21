@@ -1,0 +1,33 @@
+### GET request
+GET http://localhost:5001/rooms
+
+### GET request with id
+GET http://localhost:5001/rooms/c00000000000000000000001
+
+### POST request
+POST http://localhost:5001/rooms
+Content-Type: application/json
+
+{
+  "name": "Konferenční místnost A",
+  "capacity": 20,
+  "equipment": ["projektor", "flipchart", "wifi"],
+  "location": "Patro 1, budova A",
+  "pricePerHour": 100,
+  "ownerId": "b00000000000000000000001"
+}
+
+### PUT request
+PUT http://localhost:5001/rooms/id
+Content-Type: application/json
+
+{
+  "name": "Konferenční místnost B",
+  "capacity": 30,
+  "equipment": ["projektor", "tv", "wifi"],
+  "location": "Patro 2, budova B",
+  "pricePerHour": 120
+}
+
+### DELETE request
+DELETE http://localhost:5001/rooms/id

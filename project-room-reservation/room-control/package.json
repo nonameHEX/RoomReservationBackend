@@ -1,0 +1,36 @@
+{
+  "name": "room-control",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite-node src/app.ts",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5"
+  },
+  "main": "src/app.ts",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@node-oauth/express-oauth-server": "^4.1.1",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.17.12",
+    "axios": "^1.7.9",
+    "body-parser": "^2.0.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "cors": "^2.8.5",
+    "express": "^5.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "jwks-rsa": "^3.1.0",
+    "mongoose": "^8.9.3",
+    "reflect-metadata": "^0.2.2",
+    "supertest": "^7.0.0",
+    "vite-node": "^2.1.8",
+    "vitest": "^2.1.8"
+  }
+}

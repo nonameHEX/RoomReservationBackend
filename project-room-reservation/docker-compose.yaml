@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+# Mongo DB
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    volumes:
+      - project-room-reservation-mongo:/data/db
+    networks:
+      - mongo-net
+# Room control service
+  room-control:
+    build:
+      context: room-control
+    ports:
+      - "5001:3000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/room-control
+      - CORS_ORIGIN=http://localhost:5003
+    networks:
+      - mongo-net
+# Reservation system service
+  reservation-system:
+    build:
+      context: reservation-system
+    ports:
+      - "5002:3001"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/reservation-system
+      - CORS_ORIGIN=http://localhost:5003
+    networks:
+      - mongo-net
+    depends_on:
+      - mongo
+# Frontend
+  frontend:
+    build:
+      context: frontend
+      args:
+        VITE_ROOM_BACKEND_URL: http://localhost:5001
+        VITE_RESERVATION_BACKEND_URL: http://localhost:5002
+        VITE_NOTIFICATION_BACKEND_URL: http://localhost:5004
+        VITE_KEYCLOAK_BASE_URL: http://localhost:8091
+        VITE_KEYCLOAK_REALM: ROOM-RESERVATION-APP
+        VITE_KEYCLOAK_CLIENT_ID: web-app
+    ports:
+      - "5003:4173"
+# Notifications service
+  notifications:
+    build:
+      context: notifications
+    ports:
+      - "5004:3002"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/notifications
+      - CORS_ORIGIN=http://localhost:5003
+    networks:
+      - mongo-net
+    depends_on:
+      - mongo
+# DB pro keycloak
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=keycloakpassword
+      - POSTGRES_DB=keycloak
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - postgres-net
+  # Samotný keycloak
+  keycloak:
+    image: quay.io/keycloak/keycloak
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=1234
+      - KC_DB=postgres
+      - KC_DB_URL_HOST=postgres
+      - KC_DB_URL_PORT=5432
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=keycloakpassword
+    ports:
+      - "8091:8080"
+    command: start-dev
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    networks:
+      - postgres-net
+      - keycloak-net
+    depends_on:
+      - postgres
+
+# Moje custom volumes pro persistenci dat
+volumes:
+  project-room-reservation-mongo:
+  postgres-data:
+  keycloak-data:
+
+# Potřebné networks pro propojení service mezi sebou
+networks:
+  mongo-net:
+  postgres-net:
+  keycloak-net:

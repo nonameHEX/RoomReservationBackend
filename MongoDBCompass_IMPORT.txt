@@ -1,0 +1,70 @@
+24 znaků-> 012345678901234567890123
+Rooms:
+[
+  {
+    "_id": {"$oid": "c00000000000000000000001"},
+    "name": "Taneční plocha",
+    "capacity": 100,
+    "equipment": ["reproduktory", "bílá světla"],
+    "location": "test1, Brno",
+    "pricePerHour": 1000,
+    "reservations": [
+      {
+        "reservationId": {"$oid": "a00000000000000000000001"},
+        "from": "2024-01-02T00:00:00.000Z",
+        "to": "2024-01-03T00:00:00.000Z",
+        "status": "confirmed"
+      }
+    ],
+    "ownerId": {"$oid": "b00000000000000000000001"}
+  },
+  {
+    "_id": {"$oid": "c00000000000000000000002"},
+    "name": "Konferenční místnost",
+    "capacity": 30,
+    "equipment": ["projektor", "flipchart", "stoly"],
+    "location": "test2, Praha",
+    "pricePerHour": 500,
+    "reservations": [
+      {
+        "reservationId": {"$oid": "a00000000000000000000002"},
+        "from": "2024-01-05T00:00:00.000Z",
+        "to": "2024-01-06T00:00:00.000Z",
+        "status": "unconfirmed"
+      }
+    ],
+    "ownerId": {"$oid": "b00000000000000000000002"}
+  }
+]
+------------------------------------------------------------------------------------------
+Reservations:
+[
+  {
+    "_id": {"$oid": "a00000000000000000000001"},
+    "userId": {"$oid": "b00000000000000000000001"},
+    "roomId": {"$oid": "c00000000000000000000001"},
+    "from": "2024-01-02T00:00:00.000Z",
+    "to": "2024-01-03T00:00:00.000Z",
+    "status": "confirmed",
+    "totalPrice": 1000
+  },
+  {
+    "_id": {"$oid": "a00000000000000000000002"},
+    "userId": {"$oid": "b00000000000000000000002"},
+    "roomId": {"$oid": "c00000000000000000000002"},
+    "from": "2024-01-05T00:00:00.000Z",
+    "to": "2024-01-06T00:00:00.000Z",
+    "status": "unconfirmed",
+    "totalPrice": 500
+  }
+]
+------------------------------------------------------------------------------------------
+Notifications:
+[
+  {
+    "_id": {"$oid": "d00000000000000000000001"},
+    "userId": {"$oid": "c00000000000000000000001"},
+    "message": "Nová rezervace pro taneční plocha",
+    "created": "2025-01-12T10:00:00.000Z"
+  }
+]
